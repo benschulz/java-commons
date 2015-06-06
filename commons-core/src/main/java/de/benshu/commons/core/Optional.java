@@ -60,6 +60,11 @@ public abstract class Optional<T> implements Iterable<T> {
         }
 
         @Override
+        public boolean isPresent() {
+            return false;
+        }
+
+        @Override
         public <U> Optional<U> map(Function<? super T, ? extends U> transformer) {
             return none();
         }
@@ -143,6 +148,11 @@ public abstract class Optional<T> implements Iterable<T> {
         }
 
         @Override
+        public boolean isPresent() {
+            return true;
+        }
+
+        @Override
         public <U> Optional<U> map(Function<? super T, ? extends U> transformer) {
             return new Some<>(transformer.apply(value));
         }
@@ -214,6 +224,8 @@ public abstract class Optional<T> implements Iterable<T> {
     public abstract <E extends Exception> T getOrThrow(E exception) throws E;
 
     public abstract boolean isEqualTo(T other);
+
+    public abstract boolean isPresent();
 
     public final Iterator<T> iterator() {
         return asList().iterator();
