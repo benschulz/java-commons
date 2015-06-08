@@ -1,12 +1,12 @@
 package de.benshu.commons.core;
 
-import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -208,6 +208,10 @@ public abstract class Optional<T> implements Iterable<T> {
     private Optional() {}
 
     public abstract ImmutableList<T> asList();
+
+    public final java.util.Optional<T> asJavaOptional() {
+        return map(java.util.Optional::of).getOrReturn(java.util.Optional.<T>empty());
+    }
 
     public abstract ImmutableSet<T> asSet();
 
